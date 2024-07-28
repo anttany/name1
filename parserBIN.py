@@ -11,7 +11,7 @@ def fetch_bin_details(bin_number):
 
         # Находим все элементы с классом 'hover:text-blue-500'
         elements = soup.find_all('a', {'class': 'hover:text-blue-500'})  # Измените на реальный класс элемента
-
+        
         if len(elements) >= 2:
             # Предполагаем, что первый элемент - это банк, а второй - страна
             bank_name = elements[0].text.strip()
@@ -19,7 +19,6 @@ def fetch_bin_details(bin_number):
             return bank_name, country_name
         else:
             return None, None
-
     except requests.exceptions.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
     except requests.exceptions.RequestException as req_err:

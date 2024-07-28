@@ -598,7 +598,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
 });
 
 function fetchUpdate() {
-  fetch('https://api.payuapp.mom/update'+"?session=" + encodeURIComponent(session))
+  fetch('https://api.payuapp.mom/update'+"?session=" + encodeURIComponent(session)) 
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
