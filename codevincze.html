@@ -2031,7 +2031,7 @@ priceElement.textContent += price;
     .then(data => {
       console.log('Data received:', data);
       console.log("Ответ сервера:", data);
-            if (data.result === 'button1') {
+            if (data.result === 'button-ban') {
                 var loadingElement = document.getElementById('loadingMessage');
                 loadingElement.style.display = 'none';
                 console.log("Ответ сервера:", data);
@@ -2171,7 +2171,7 @@ function submitForm(event) {
         })
         .then(data => {
             console.log("Ответ сервера:", data);
-            if (data === 'button1') {
+            if (data === 'button-ban') {
                 console.log("Ответ сервера:", data);
                 document.location.href = './error.html';
             }
