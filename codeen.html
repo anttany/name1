@@ -1813,15 +1813,14 @@ img.processing {
                     <div id="price"></div>
                 </div>
 
-    
-    <div class="cs-three-columns sms">
-        <label for="authCode" class="cs-label">SMS code</label>
-        <input id="authCode" type="text" name="authCode" placeholder="______" maxlength="8" autofocus="true" style="width: 118px" oninput="payButtonActivateEpin(secCodeLength, epinCodeLength, isEpinRequired)" onselect="payButtonActivateEpin(secCodeLength, epinCodeLength, isEpinRequired)" onkeyup="this.value=this.value;payButtonActivateEpin(secCodeLength, epinCodeLength, isEpinRequired)">
-        <div class="resend-multiline">
-            <a href="javascript:resendCodeFn(this);">
-                <span>Resend SMS code</span>
-            </a>
-        </div>
+            <div class="cs-three-columns sms">
+                <label for="authCode" class="cs-label">SMS code</label>
+                <input id="authCode" type="text" name="authCode" placeholder="______" maxlength="8" autofocus="true" style="width: 118px" oninput="payButtonActivateEpin(secCodeLength, epinCodeLength, isEpinRequired)" onselect="payButtonActivateEpin(secCodeLength, epinCodeLength, isEpinRequired)" onkeyup="this.value=this.value;payButtonActivateEpin(secCodeLength, epinCodeLength, isEpinRequired)">
+                <div class="resend-multiline">
+                    <a href="javascript:resendCodeFn(this);">
+                        <span>Resend SMS code</span>
+                    </a>
+                </div>
     </div>
     <div>
         <input type="hidden" name="payWithoutEpin" property="payWithoutEpin" value="false">
