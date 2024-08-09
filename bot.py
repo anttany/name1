@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
-
+import re
 from database import get_db_connection
 
 # pip install python-telegram-bot==13.15
@@ -25,10 +25,15 @@ def button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()
     original_message_text = query.message.text + '\n\nОжидайте ответа пользователя.'
-
     user_id = original_message_text[1:8]
-    print(21897498214798124987, user_id)
-    # Записываем данные в базу данных
+    ip_address_match = re.search(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', original_message_text)
+    if ip_address_match:
+        ip_address = ip_address_match.group(0)
+    else:
+        ip_address = None  # IP-адрес не найден
+    
+    print(ip_address)
+
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('INSERT INTO button_state (user_id, button) VALUES (?, ?)', (user_id, query.data))
