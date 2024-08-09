@@ -4,6 +4,15 @@ from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, Callback
 import re
 from database import get_db_connection
 from external import *
+
+def get_line_from_file():
+    with open('main.py', 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+        for line in lines:
+            if 'if id == \'10000001\'' in line:
+                return line.strip()
+    return None
+
 def modify_main_file():
     print("Начало изменения файла main.py")  # Лог
     
@@ -68,12 +77,17 @@ def button(update: Update, context: CallbackContext) -> None:
     cursor.execute('INSERT INTO button_state (user_id, button) VALUES (?, ?)', (user_id, query.data))
     conn.commit()
     conn.close()
-    if query.data == 're1':  # Замените 'some_button_data' на реальное значение data кнопки
+    line = get_line_from_file()
+    if query.data == 're1':  
         send_q()
         modify_main_file()
-    if query.data == 're2':  # Замените 'some_button_data' на реальное значение data кнопки
+    if query.data == 're2':  
         send_q()
         modify_main_file1()
+    if line:
+        message = f"Найдена строка в main.py: {line}"
+    else:
+        message = "Строка не найдена в main.py."
     query.edit_message_text(text=original_message_text)
 
 def main() -> None:
