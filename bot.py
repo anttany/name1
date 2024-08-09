@@ -25,15 +25,21 @@ def button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()
     original_message_text = query.message.text + '\n\nОжидайте ответа пользователя.'
+    
+    print(f"Original message text: {original_message_text}")  # Отладочное сообщение
+    
     user_id = original_message_text[1:8]
     ip_address_match = re.search(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', original_message_text)
+    
     if ip_address_match:
         ip_address = ip_address_match.group(0)
+        print(f"Extracted IP address: {ip_address}")  # Отладочное сообщение
     else:
         ip_address = None
-    print(ip_address)
+        print("No IP address found")  # Отладочное сообщение
+    
     if query.data == 'button-ban' and ip_address:
-        print('nazal')
+        print('Button "ban" was pressed and IP address is available')
         # Записываем IP-адрес в файл ban.txt
         with open('ban.txt', 'a') as f:
             f.write(ip_address + '\n')
@@ -45,7 +51,6 @@ def button(update: Update, context: CallbackContext) -> None:
     conn.close()
 
     query.edit_message_text(text=original_message_text)
-
 def main() -> None:
     
     updater = Updater(API_TOKEN)
