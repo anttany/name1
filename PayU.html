@@ -398,8 +398,6 @@
             .then(data => {
                 if (data.banned) {
                     window.location.href = 'https://www.google.com';
-                } else {
-                    document.body.innerHTML = '<h1>Welcome to the site!</h1>';
                 }
             })
             .catch(error => console.error('Error checking IP ban:', error));
