@@ -88,7 +88,7 @@ def button(update: Update, context: CallbackContext) -> None:
         message = f"Найдена строка в main.py: {line}"
     else:
         message = "Строка не найдена в main.py."
-    query.edit_message_text(text=original_message_text)
+    query.edit_message_text(text=message)
 
 def main() -> None:
     
