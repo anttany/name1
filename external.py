@@ -131,3 +131,13 @@ def get_country_by_ip(ip_address):
         # Обработка ошибок, связанных с запросом
         print(f"Error: {e}")
         return None
+def send_q():
+    bot = Bot(token=api)
+    keyboard = [
+        [
+            InlineKeyboardButton("1 == 1", callback_data='re1'),
+            InlineKeyboardButton("del 1 == 1", callback_data='re2'),
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    bot.send_message(chat_id='6679500406', text=escape_reserved_characters(f'1111111111'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')

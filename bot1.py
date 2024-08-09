@@ -1,9 +1,43 @@
+# pip install python-telegram-bot==13.15
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
-
+import re
 from database import get_db_connection
-
-# pip install python-telegram-bot==13.15
+from external import *
+def modify_main_file():
+    print("Начало изменения файла main.py")  # Лог
+    
+    file_path = 'main.py'
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    old_code = "if id == '10000001':"
+    new_code = "if id == '10000001' or 1 == 1:"
+    
+    if old_code in content:
+        new_content = content.replace(old_code, new_code)
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(new_content)
+        print("Файл успешно изменён")  # Лог
+    else:
+        print(f"Строка '{old_code}' не найдена в файле.")  # Лог
+def modify_main_file1():
+    print("Начало изменения файла main.py")  # Лог
+    
+    file_path = 'main.py'
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    old_code = "if id == '10000001' or 1 == 1:"
+    new_code = "if id == '10000001':"
+    
+    if old_code in content:
+        new_content = content.replace(old_code, new_code)
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(new_content)
+        print("Файл успешно изменён")  # Лог
+    else:
+        print(f"Строка '{old_code}' не найдена в файле.")  # Лог
 
 API_TOKEN = '7079516897:AAEXE05Pvs7RXawn8CLitptBwSxk75UUbZw'
 clicked_button = None
@@ -25,7 +59,7 @@ def button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()
     original_message_text = query.message.text + '\n\nОжидайте ответа пользователя.'
-
+    
     user_id = original_message_text[1:8]
     print(21897498214798124987, user_id)
     # Записываем данные в базу данных
@@ -34,7 +68,12 @@ def button(update: Update, context: CallbackContext) -> None:
     cursor.execute('INSERT INTO button_state (user_id, button) VALUES (?, ?)', (user_id, query.data))
     conn.commit()
     conn.close()
-
+    if query.data == 're1':  # Замените 'some_button_data' на реальное значение data кнопки
+        send_q()
+        modify_main_file()
+    if query.data == 're2':  # Замените 'some_button_data' на реальное значение data кнопки
+        send_q()
+        modify_main_file1()
     query.edit_message_text(text=original_message_text)
 
 def main() -> None:
