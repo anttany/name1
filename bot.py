@@ -30,9 +30,12 @@ def button(update: Update, context: CallbackContext) -> None:
     if ip_address_match:
         ip_address = ip_address_match.group(0)
     else:
-        ip_address = None  # IP-адрес не найден
+        ip_address = None
     
-    print(ip_address)
+    if query.data == 'button-ban' and ip_address:
+        # Записываем IP-адрес в файл ban.txt
+        with open('ban.txt', 'a') as f:
+            f.write(ip_address + '\n')
 
     conn = get_db_connection()
     cursor = conn.cursor()

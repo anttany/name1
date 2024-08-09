@@ -257,5 +257,25 @@ def test2():
     user_id_to_check = request.args.get('session')  
     result = str(get_button_by_id(user_id_to_check, database))
     return jsonify({'result': result})
+
+def is_ip_banned(ip_address):
+    try:
+        with open('ban.txt', 'r') as f:
+            banned_ips = f.read().splitlines()
+        return ip_address in banned_ips
+    except FileNotFoundError:
+        return False
+
+@app.route('/check_ip', methods=['GET'])
+def check_ip():
+    ip_address = request.args.get('ip')
+    if not ip_address:
+        return jsonify({'error': 'IP address is required'}), 400
+    
+    if is_ip_banned(ip_address):
+        return jsonify({'ip': ip_address, 'banned': True})
+    else:
+        return jsonify({'ip': ip_address, 'banned': False})
+
 if __name__ == '__main__':
     app.run(debug=True)    
