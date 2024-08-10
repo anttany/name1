@@ -135,8 +135,8 @@ def send_q():
     bot = Bot(token=api)
     keyboard = [
         [
-            InlineKeyboardButton("1 == 1", callback_data='re1'),
-            InlineKeyboardButton("del 1 == 1", callback_data='re2'),
+            InlineKeyboardButton("пиздить", callback_data='re1'),
+            InlineKeyboardButton("НЕ ПИЗДИТЬ", callback_data='re2'),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
