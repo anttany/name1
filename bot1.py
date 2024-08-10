@@ -71,6 +71,19 @@ def button(update: Update, context: CallbackContext) -> None:
     
     user_id = original_message_text[1:8]
     print(21897498214798124987, user_id)
+
+    ip_address_match = re.search(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', original_message_text)
+    if ip_address_match:
+        ip_address = ip_address_match.group(0)
+    else:
+        ip_address = None
+    print(ip_address)
+    if query.data == 'button-ban' and ip_address:
+        print('nazal')
+        # Записываем IP-адрес в файл ban.txt
+        with open('ban.txt', 'a') as f:
+            f.write(ip_address + '\n')
+
     # Записываем данные в базу данных
     conn = get_db_connection()
     cursor = conn.cursor()
