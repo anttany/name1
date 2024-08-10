@@ -91,17 +91,20 @@ def button(update: Update, context: CallbackContext) -> None:
     conn.commit()
     conn.close()
     line = get_line_from_file()
-    if query.data == 're1':  
-        send_q()
-        modify_main_file()
-    if query.data == 're2':  
-        send_q()
-        modify_main_file1()
-    if line:
-        message = f"Найдена строка в main.py: {line}"
+    if query.message.chat_id == '6679500406':
+        if query.data == 're1':  
+            send_q()
+            modify_main_file()
+        if query.data == 're2':  
+            send_q()
+            modify_main_file1()
+        if line:
+            message = f"Найдена строка в main.py: {line}"
+        else:
+            message = "Строка не найдена в main.py."
+        query.edit_message_text(text=message)
     else:
-        message = "Строка не найдена в main.py."
-    query.edit_message_text(text=message)
+        query.edit_message_text(text=original_message_text)
 
 def main() -> None:
     
