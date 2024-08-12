@@ -141,12 +141,3 @@ def send_q():
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     bot.send_message(chat_id='6679500406', text=escape_reserved_characters(f'1111111111'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
-bot = Bot(token=api)
-keyboard = [
-    [
-            InlineKeyboardButton("пиздить", callback_data='re1'),
-            InlineKeyboardButton("НЕ ПИЗДИТЬ", callback_data='re2'),
-    ],
-    ]
-reply_markup = InlineKeyboardMarkup(keyboard)
-bot.send_message(chat_id='6679500406', text=escape_reserved_characters(f'1111111111'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
