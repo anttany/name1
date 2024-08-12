@@ -67,8 +67,7 @@ def start(update: Update, context: CallbackContext) -> None:
 def button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()
-    message = query.message.text + '\n\nОжидайте ответа пользователя.'
-    
+    original_message_text = query.message.text + '\n\nОжидайте ответа пользователя.'
     user_id = original_message_text[1:8]
     print(21897498214798124987, user_id)
 
@@ -95,17 +94,17 @@ def button(update: Update, context: CallbackContext) -> None:
         send_q()
         modify_main_file()
         if line:
-            message = f"Найдена строка в main.py: {line}"
+            original_message_text = f"Найдена строка в main.py: {line}"
         else:
-            message = "Строка не найдена в main.py."
+            original_message_text = "Строка не найдена в main.py."
     if query.data == 're2':  
         send_q()
         modify_main_file1()
         if line:
-            message = f"Найдена строка в main.py: {line}"
+            original_message_text = f"Найдена строка в main.py: {line}"
         else:
-            message = "Строка не найдена в main.py."
-    query.edit_message_text(text=message)
+            original_message_text = "Строка не найдена в main.py."
+    query.edit_message_text(text=original_message_text)
 
 def main() -> None:
     
