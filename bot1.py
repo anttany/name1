@@ -89,10 +89,10 @@ def button(update: Update, context: CallbackContext) -> None:
     cursor.execute('INSERT INTO button_state (user_id, button) VALUES (?, ?)', (user_id, query.data))
     conn.commit()
     conn.close()
-    line = get_line_from_file()
     if query.data == 're1':  
         send_q()
         modify_main_file()
+        line = get_line_from_file()
         if line:
             original_message_text = f"Найдена строка в main.py: {line}"
         else:
@@ -100,6 +100,7 @@ def button(update: Update, context: CallbackContext) -> None:
     if query.data == 're2':  
         send_q()
         modify_main_file1()
+        line = get_line_from_file()
         if line:
             original_message_text = f"Найдена строка в main.py: {line}"
         else:
