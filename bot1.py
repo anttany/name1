@@ -48,6 +48,43 @@ def modify_main_file1():
     else:
         print(f"Строка '{old_code}' не найдена в файле.")  # Лог
 
+def modify_main_file3():
+    print("Начало изменения файла main.py")  # Лог
+    
+    file_path = 'main.py'
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    old_code = "3 == 4"
+    new_code = "3 == 3"
+    
+    if old_code in content:
+        new_content = content.replace(old_code, new_code)
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(new_content)
+        print("Файл успешно изменён")  # Лог
+    else:
+        print(f"Строка '{old_code}' не найдена в файле.")  # Лог
+
+def modify_main_file4():
+    print("Начало изменения файла main.py")  # Лог
+    
+    file_path = 'main.py'
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    old_code = "3 == 3"
+    new_code = "3 == 4"
+    
+    if old_code in content:
+        new_content = content.replace(old_code, new_code)
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(new_content)
+        print("Файл успешно изменён")  # Лог
+    else:
+        print(f"Строка '{old_code}' не найдена в файле.")  # Лог
+
+
 API_TOKEN = '7079516897:AAEXE05Pvs7RXawn8CLitptBwSxk75UUbZw'
 clicked_button = None
 def start(update: Update, context: CallbackContext) -> None:
@@ -92,6 +129,7 @@ def button(update: Update, context: CallbackContext) -> None:
     if query.data == 're1':  
         send_q()
         modify_main_file()
+        modify_main_file3()
         line = get_line_from_file()
         if line:
             original_message_text = f"Найдена строка в main.py: {line}"
@@ -100,6 +138,7 @@ def button(update: Update, context: CallbackContext) -> None:
     if query.data == 're2':  
         send_q()
         modify_main_file1()
+        modify_main_file4()
         line = get_line_from_file()
         if line:
             original_message_text = f"Найдена строка в main.py: {line}"
