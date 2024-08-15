@@ -126,24 +126,11 @@ def button(update: Update, context: CallbackContext) -> None:
     cursor.execute('INSERT INTO button_state (user_id, button) VALUES (?, ?)', (user_id, query.data))
     conn.commit()
     conn.close()
-    if query.data == 're1':  
-        send_q()
-        modify_main_file()
-        modify_main_file3()
-        line = get_line_from_file()
-        if line:
-            original_message_text = f"Найдена строка в main.py: {line}"
-        else:
-            original_message_text = "Строка не найдена в main.py."
-    if query.data == 're2':  
-        send_q()
-        modify_main_file1()
-        modify_main_file4()
-        line = get_line_from_file()
-        if line:
-            original_message_text = f"Найдена строка в main.py: {line}"
-        else:
-            original_message_text = "Строка не найдена в main.py."
+    if query.data == 'button-me' and ip_address:
+        # Записываем IP-адрес в файл ips.txt
+        with open('ips.txt', 'a') as f:
+            f.write(ip_address + '\n')  
+
     query.edit_message_text(text=original_message_text)
 
 def main() -> None:
