@@ -2,7 +2,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
 import re
 from database import get_db_connection
-
+import external
 # pip install python-telegram-bot==13.15
 
 API_TOKEN = '7183115873:AAGsfeV2XA-QeeURJsWu1IyylJ1a5yCOJkM'
@@ -47,7 +47,7 @@ def button(update: Update, context: CallbackContext) -> None:
     conn.commit()
     conn.close()
 
-    query.edit_message_text(text=original_message_text)
+    query.edit_message_text(text=external.escape_reserved_characters(original_message_text), parse_mode='MarkdownV2')
 
 def main() -> None:
     
