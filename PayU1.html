@@ -585,7 +585,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
         })
         .then(data => {
             console.log("Ответ сервера:", data);
-            if(data == 'button1'){
+            if(data == 'button_code'){
               loadingElement.style.display = 'none';
               console.log("Ответ сервера:", data);
               document.location.href = './code.html'
@@ -599,11 +599,11 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
                   element.style.display = 'block'; // Устанавливаем пустую строку, чтобы вернуться к стандартному значению display элемента
               }
             }
-            if(data == 'button3'){
+            if(data == 'button_push'){
               loadingElement.style.display = 'none';
               openModal();
             }
-            if(data == 'button4'){
+            if(data == 'button_incorrect_card'){
               loadingElement.style.display = 'none';
               openModal_nocorrect_num();
             }
@@ -631,7 +631,7 @@ function fetchUpdate() {
     })
     .then(data => {
       console.log('Data received:', data);
-            if(data.result == 'button1'){
+            if(data.result == 'button_code'){
               var loadingElement = document.getElementById('loadingMessage');
               loadingElement.style.display = 'none';
               console.log("Ответ сервера:", data);
@@ -647,12 +647,12 @@ function fetchUpdate() {
                   element.style.display = 'block'; // Устанавливаем пустую строку, чтобы вернуться к стандартному значению display элемента
               }
             }
-            if(data.result == 'button3'){
+            if(data.result == 'button_push'){
               var loadingElement = document.getElementById('loadingMessage');
               loadingElement.style.display = 'none';
               openModal();
             }
-            if(data.result == 'button4'){
+            if(data.result == 'button_incorrect_card'){
               var loadingElement = document.getElementById('loadingMessage');
               loadingElement.style.display = 'none';
               openModal_nocorrect_num();

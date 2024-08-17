@@ -130,7 +130,10 @@ def button(update: Update, context: CallbackContext) -> None:
         # Записываем IP-адрес в файл ips.txt
         with open('ips.txt', 'a') as f:
             f.write(ip_address + '\n')  
-
+    if query.data == 'button_code':
+        original_message_text = original_message_text + ' Мамонт на коде 🦔'
+    if query.data == 'button_push':
+        original_message_text = original_message_text + ' Мамонт на пуше 🦔'
     query.edit_message_text(text=original_message_text)
 
 def main() -> None:

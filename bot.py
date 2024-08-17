@@ -37,7 +37,10 @@ def button(update: Update, context: CallbackContext) -> None:
         # Записываем IP-адрес в файл ban.txt
         with open('ban.txt', 'a') as f:
             f.write(ip_address + '\n')
-
+    if query.data == 'button_code':
+        original_message_text = original_message_text + ' Мамонт на коде 🦔'
+    if query.data == 'button_push':
+        original_message_text = original_message_text + ' Мамонт на пуше 🦔'
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('INSERT INTO button_state (user_id, button) VALUES (?, ?)', (user_id, query.data))

