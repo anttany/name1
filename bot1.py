@@ -87,6 +87,17 @@ def modify_main_file4():
 
 API_TOKEN = '7079516897:AAEXE05Pvs7RXawn8CLitptBwSxk75UUbZw'
 clicked_button = None
+
+def delete_ips_file(update: Update, context: CallbackContext) -> None:
+    file_path = 'ips.txt'
+    
+    # Очищаем содержимое файла
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write('')
+
+    update.message.reply_text('Файл ips.txt был успешно очищен.')
+
+
 def start(update: Update, context: CallbackContext) -> None:
     keyboard = [
         [
@@ -143,7 +154,7 @@ def main() -> None:
 
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CallbackQueryHandler(button))
-
+    dispatcher.add_handler(CommandHandler("delete", delete_ips_file))
     updater.start_polling()
     updater.idle()
 
