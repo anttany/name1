@@ -123,8 +123,8 @@ def cheltut1(ip,name):
 
 
 def get_country_by_ip(ip_address):
-    # URL для доступа к ipapi
-    url = f'http://ipapi.co/{ip_address}/json/'
+    # URL для доступа к ip-api.com
+    url = f'http://ip-api.com/json/{ip_address}?lang=ru'
 
     try:
         # Отправка запроса к API
@@ -135,14 +135,14 @@ def get_country_by_ip(ip_address):
         data = response.json()
 
         # Извлечение информации о стране
-        country = data.get('country_name', 'Unknown')
+        country = data.get('country', 'Unknown')
 
         return country
 
     except requests.exceptions.RequestException as e:
-        # Обработка ошибок, связанных с запросом
         print(f"Error: {e}")
-        return None
+        return 'Unknown'
+
 def send_q():
     bot = Bot(token=api)
     keyboard = [
