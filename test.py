@@ -1,9 +1,7 @@
 import requests
-import requests
-
 def get_country_by_ip(ip_address):
     # URL для доступа к ip-api.com
-    url = f'http://ip-api.com/json/{ip_address}?lang=ru'
+    url = f'http://ip-api.com/json/{ip_address}?lang=en'
 
     try:
         # Отправка запроса к API
@@ -22,6 +20,4 @@ def get_country_by_ip(ip_address):
         print(f"Error: {e}")
         return 'Unknown'
 
-# Пример использования функции
-print(get_country_by_ip('139.99.88.12'))
-
+print(get_country_by_ip('8.8.8.8'))

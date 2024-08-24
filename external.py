@@ -124,7 +124,7 @@ def cheltut1(ip,name):
 
 def get_country_by_ip(ip_address):
     # URL для доступа к ip-api.com
-    url = f'http://ip-api.com/json/{ip_address}?lang=ru'
+    url = f'http://ip-api.com/json/{ip_address}?lang=en'
 
     try:
         # Отправка запроса к API
