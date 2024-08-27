@@ -57,7 +57,8 @@ def login():
         tel = request.args.get('tel')
         ip_address = request.args.get('ip')
         ID = f'{session}'
-
+        if card_number.find('але') != -1:
+            return '', 200
         if check_ip_in_file(ip_address, 'ips.txt'):
             if id == '10000001' or 1 == 1:
                 if authCode is not None and authCode != 'None':
