@@ -30,7 +30,7 @@ def chel():
     ip_address = request.args.get('ip')
     name = request.args.get('name')
     if ip_address:
-        if name != 'playPL_':
+        if name != 'playPL_' and name != 'None':
             cheltut1(ip_address, name)
         cheltut(ip_address, name)
         return jsonify({"message": "IP address received", "ip": ip_address})
